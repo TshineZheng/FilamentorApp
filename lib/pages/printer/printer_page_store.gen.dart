@@ -251,6 +251,7 @@ abstract class PrinterPageStoreBase extends BasePageStore with Store {
     required Channel channel,
     required String filaType,
     required Color color,
+    required int printerChannel
   }) async {
     if (channel.filamentType == filaType && channel.filamentColor.toHexString() == color.toHexString()) {
       return;
@@ -259,7 +260,7 @@ abstract class PrinterPageStoreBase extends BasePageStore with Store {
     fetchEditFilament = printerClient
         .editChannelFilament(
           printerId,
-          channel.channel,
+          printerChannel,
           filaType,
           color.toHexString(includeHashSign: true, enableAlpha: false),
         )

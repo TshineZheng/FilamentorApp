@@ -70,7 +70,12 @@ abstract class AddChannelPageStoreBase extends BasePageStore with Store {
 
     ObservableList<Channel> ret = ObservableList();
 
-    ret.addAll(controllers.firstWhere((e) => e.id == curController!.id).channels.where((e) => e.bindPrinter.isEmpty));
+    ret.addAll(controllers
+        .firstWhere((e) {
+          return e.id == curController!.id;
+        })
+        .channels
+        .where((e) => e.bindPrinter.isEmpty));
     return ret;
   }
 

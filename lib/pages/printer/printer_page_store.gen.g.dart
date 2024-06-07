@@ -396,10 +396,14 @@ mixin _$PrinterPageStore on PrinterPageStoreBase, Store {
   Future<void> editChannelFilamente(
       {required Channel channel,
       required String filaType,
-      required Color color}) {
+      required Color color,
+      required int printerChannel}) {
     return _$editChannelFilamenteAsyncAction.run(() => super
         .editChannelFilamente(
-            channel: channel, filaType: filaType, color: color));
+            channel: channel,
+            filaType: filaType,
+            color: color,
+            printerChannel: printerChannel));
   }
 
   @override

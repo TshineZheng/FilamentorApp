@@ -220,6 +220,7 @@ class _PrinterPageState extends BasePageState<PrinterPage, PrinterPageStore> {
                   channel: store.channelList[index],
                   filaType: type,
                   color: color,
+                  printerChannel: index
                 );
               },
             ),

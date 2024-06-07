@@ -48,7 +48,7 @@ ObservableList<Controller> controllerfromConfig(RespConfig config) {
         String? filaColor;
 
         for (var cr in config.channelRelations) {
-          if (cr.channel == i) {
+          if (cr.controllerId == a.id && cr.channel == i) {
             bindPrinter = cr.printerId;
             filaType = cr.filamentType;
             filaColor = cr.filamentColor;
