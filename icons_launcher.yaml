@@ -1,0 +1,15 @@
+icons_launcher:
+  image_path: "assets/filamentor-app-icon.png"
+  platforms:
+    android:
+      enable: true
+    ios:
+      enable: true
+    web:
+      enable: true
+    windows:
+      enable: true
+    # macos:
+    #   enable: true
+    # linux:
+    #   enable: true

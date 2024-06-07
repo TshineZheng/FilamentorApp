@@ -1,0 +1,7 @@
+{
+    "server": "192.168.10.233",
+    "port": 1883,
+    "client_id": "Filamentor",
+    "username": "",
+    "password": ""
+  }

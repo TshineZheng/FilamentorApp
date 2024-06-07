@@ -1,0 +1,9 @@
+dependency_overrides:
+  lce:
+    path: E:\Projects\flutter_lce\lce
+  lce_codegen:
+    path: E:\Projects\flutter_lce\codegen
+  injectable:
+    path: E:\Github\injectable\injectable
+  injectable_generator:
+    path: E:\Github\injectable\injectable_generator

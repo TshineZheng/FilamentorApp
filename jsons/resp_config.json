@@ -1,0 +1,8 @@
+{
+      "printer_list": "$[]resp_printer",
+      "detect_list": "$[]resp_detector",
+      "controller_list": "$[]resp_controller",
+      "channel_relations": "$[]resp_channel_relation",
+      "detect_relations": "$[]resp_detect_relation",
+      "mqtt_config": "$resp_mqtt_config"
+}

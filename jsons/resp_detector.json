@@ -1,0 +1,5 @@
+{
+    "id": "detector-1",
+    "type": "mqtt_broken_detect",
+    "info": "$resp_detector_info"
+  }

@@ -1,0 +1,7 @@
+{
+    "id": "bambu-1",
+    "type": "bambu_client",
+    "info": "$resp_printer_info",
+    "alias": "bambu-1",
+    "change_temp": 255
+  }

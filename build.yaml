@@ -1,0 +1,46 @@
+# https://github.com/dart-lang/build/blob/master/docs/build_yaml_format.md 
+targets:
+  $default:
+    builders:
+      mobx_codegen|mobx_generator:
+        enabled: true
+        generate_for:
+          include:
+            - lib/**.gen.dart
+            - lib/**_store.dart
+      event_bus_auto_codegen:
+        enabled: true
+        # options:
+        #   debug: true
+        generate_for:
+          include:
+            - lib/**.gen.dart
+            - lib/**_store.dart
+      auto_route_generator:auto_route_generator:
+        generate_for:
+          include:
+            - lib/config/app_router.dart
+            - lib/**_page.dart
+          exclude:
+            - lib/models/base/**.dart
+      # isar_generator:
+      #   enabled: true
+      #   generate_for:
+      #     include:
+      #       - lib/data/isar/kv/database.dart
+      injectable_generator:injectable_builder:
+        enabled: true
+        generate_for:
+          include:
+            - lib/**.gen.dart
+            - lib/**_store.dart
+      lce_codegen:
+        enabled: true
+        generate_for:
+          include:
+            - lib/**.gen.dart
+            - lib/**_store.dart
+        options:
+          weakCatchSuffix: '$catch'
+          strongCatchSuffix: '$$catch'
+          retryCatchSuffix: '$retry'

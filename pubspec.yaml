@@ -1,0 +1,77 @@
+name: filamentor_app
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  mobx: ^2.3.3
+  flutter_mobx: ^2.2.1
+  lce: 0.1.1+3
+  get_it: ^7.6.8
+  flutter_screenutil: ^5.9.0
+  extended_image_library: ^4.0.4
+  tuple: ^2.0.2
+  logger: ^2.2.0
+  event_bus: ^2.0.0
+  event_bus_auto: ^0.1.0
+  injectable: ^2.4.1
+  auto_route: ^8.1.3
+  path_provider: ^2.1.3
+  oktoast: ^3.4.0
+  dio: ^5.4.3+1
+  quiver: ^3.2.1
+  retrofit: ^4.1.0
+  shared_preferences: ^2.2.3
+  flutter_form_builder: ^9.2.1
+  hexcolor: ^3.0.1
+  json_theme: ^6.5.0+1
+  modal_bottom_sheet: ^3.0.0
+  url_launcher: ^6.2.6
+  flutter_intro: ^3.2.3
+  responsive_grid_list: ^1.4.0
+  flutter_settings_ui: ^3.0.1
+  window_manager: ^0.3.9
+  prompt_dialog: ^1.0.16
+  string_validator: ^1.1.0
+  easy_refresh: ^3.4.0
+  confirm_dialog: ^1.0.3
+  flutter_linkify: ^6.0.0
+  flutter_colorpicker: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^4.0.0
+  build_runner:
+  mobx_codegen: ^2.6.1
+  lce_codegen: 0.1.0+3
+  event_bus_auto_codegen: ^0.1.0+3
+  injectable_generator: ^2.6.1
+  auto_route_generator: ^8.0.0
+  json_to_model: ^3.2.4
+  retrofit_generator: ^8.1.0
+  icons_launcher: ^2.1.7
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/appainter_theme.json
+    - assets/image/
+
+json_to_model:
+  source: jsons
+  output: lib/data/network/models/
+  factory_output: test/faker/
+  create_factories: false
+
+flutter_gen:
+  output: lib/helper/
+  assets:
+    exclude: []
