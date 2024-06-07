@@ -4,6 +4,7 @@ import 'package:filamentor_app/common/base/base_page_state.dart';
 import 'package:filamentor_app/config/app_router.dart';
 import 'package:filamentor_app/config/app_router.gr.dart';
 import 'package:filamentor_app/pages/setting/setting_page_store.gen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_settings_ui/flutter_settings_ui.dart';
@@ -37,13 +38,14 @@ class _SettingPageState extends BasePageState<SettingPage, SettingPageStore> {
           SettingsSection(
             // title: const Text('基本'),
             tiles: [
-              SettingsTile.navigation(
-                title: const Text('服务器'),
-                value: Observer(builder: (_) {
-                  return Text(store.serverUrl);
-                }),
-                onPressed: (context) => router.push(ServerSettingRoute()),
-              ),
+              if (!kIsWeb)
+                SettingsTile.navigation(
+                  title: const Text('服务器'),
+                  value: Observer(builder: (_) {
+                    return Text(store.serverUrl);
+                  }),
+                  onPressed: (context) => router.push(ServerSettingRoute()),
+                ),
               SettingsTile.navigation(
                 title: const Text('打印机'),
                 value: const Text('192.168.10.65'),
