@@ -62,13 +62,13 @@ class _ControllerClient implements ControllerClient {
   Future<ApiResult<dynamic>> bindPrinter(
     String printerId,
     String controllerId,
-    int channel,
+    List<int> channel,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'printer_id': printerId,
       r'controller_id': controllerId,
-      r'channel': channel,
+      r'channels': channel,
     };
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;

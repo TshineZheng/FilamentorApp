@@ -24,7 +24,7 @@ abstract class ControllerClient {
   Future<ApiResult> bindPrinter(
     @Query('printer_id') String printerId,
     @Query('controller_id') String controllerId,
-    @Query('channel') int channel,
+    @Query('channels') List<int> channel,
   );
 
   @POST('/unbind_printer')

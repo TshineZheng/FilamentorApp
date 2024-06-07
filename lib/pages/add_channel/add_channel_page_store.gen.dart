@@ -99,22 +99,19 @@ abstract class AddChannelPageStoreBase extends BasePageStore with Store {
 
   @action
   Future<void> bind() async {
-    for (var element in channelSelected) {
-      if (element.item2) {
-        fetchBindChannel = controllerClient
-            .bindPrinter(
-              curPrinter,
-              curController!.id,
-              element.item1,
-            )
-            .obf;
-        final ret = await fetchBindChannel;
-        if (ret.isSuccess == false) {
-          showMessage('#${element.item1} 绑定失败');
-          return;
-        }
-      }
+    fetchBindChannel = controllerClient
+        .bindPrinter(
+          curPrinter,
+          curController!.id,
+          channelSelected.where((e) => e.item2).map((e) => e.item1).toList(),
+        )
+        .obf;
+    final ret = await fetchBindChannel;
+    if (ret.isSuccess == false) {
+      showMessage('绑定失败');
+      return;
     }
+
     loadData();
     showMessage('绑定成功');
   }
