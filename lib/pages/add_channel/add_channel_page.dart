@@ -46,8 +46,9 @@ class _AddChannelPageState extends BasePageState<AddChannelPage, AddChannelPageS
                   Row(
                     children: [
                       IconButton(
-                          onPressed: () {
-                            appRouter.push(const ControllerEditRoute());
+                          onPressed: ()async {
+                            await appRouter.push(const ControllerEditRoute());
+                            store.loadData();
                           },
                           icon: const Row(
                             children: [
