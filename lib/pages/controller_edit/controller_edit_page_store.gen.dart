@@ -4,6 +4,7 @@ import 'package:filamentor_app/data/network/api_result.dart';
 import 'package:filamentor_app/data/network/controller_client.gen.dart';
 import 'package:filamentor_app/data/network/models/index.dart';
 import 'package:injectable/injectable.dart';
+import 'package:lce/anotations.dart';
 import 'package:lce/lce.dart';
 import 'package:mobx/mobx.dart';
 
@@ -28,6 +29,7 @@ abstract class ControllerEditPageStoreBase extends BasePageStore with Store {
   @observable
   var fetchAddController = OBF<ApiResult>();
 
+  @LCECatch(message: '创建失败')
   @action
   Future<void> create(String type, String name, String ip, int totalChannel) async {
     fetchAddController = controllerClient
@@ -38,15 +40,9 @@ abstract class ControllerEditPageStoreBase extends BasePageStore with Store {
           YbaAmsInfo(ip: ip, port: 3333, channelTotal: totalChannel).toJson(),
         )
         .obf;
-
-    final ret = await fetchAddController;
-
-    if (ret.isSuccess) {
-      showMessage('创建成功');
-      appRouter.popForced(true);
-      return;
-    }
-
-    showMessage('创建失败, ${ret.message}');
+    await fetchAddController;
+    showMessage('创建成功');
+    appRouter.popForced(true);
+    return;
   }
 }

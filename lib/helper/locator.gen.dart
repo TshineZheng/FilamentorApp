@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:filamentor_app/data/network/server_exceptions.dart';
 import 'package:filamentor_app/data/storage.gen.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -33,17 +34,43 @@ abstract class RegisterModule {
   Dio dio(Storage storage) {
     final dio = Dio();
     // 添加拦截器
-    dio.interceptors.add(InterceptorsWrapper(
-      onRequest: (options, handler) {
-        // 对所有请求参数进行 UTF-8 编码
-        // options.queryParameters.forEach((key, value) {
-        //   if (value is String) {
-        //     options.queryParameters[key] = Uri.encodeFull(value);
+    dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          // 对所有请求参数进行 UTF-8 编码
+          // options.queryParameters.forEach((key, value) {
+          //   if (value is String) {
+          //     options.queryParameters[key] = Uri.encodeFull(value);
+          //   }
+          // });
+          return handler.next(options); // 继续执行请求
+        },
+        onResponse: (response, handler) {
+          if (response.statusCode == 200 && response.data is Map && response.data['code'] == 200) {
+            return handler.next(response); // 继续执行请求
+          }
+
+          throw ServerExceptions(
+            url: response.realUri,
+            code: response.data['code'] ?? response.statusCode,
+            message: response.data['message'] ?? '未知错误',
+            result: response.data,
+          );
+        },
+        // onError: (error, handler) {
+        //   final msg = error.response?.data['message'];
+        //   if (msg != null) {
+        //     throw ServerExceptions(
+        //       url: error.response?.realUri,
+        //       code: error.response?.data['code'] ?? error.response?.statusCode,
+        //       message: error.response?.data['message'] ?? '未知错误',
+        //       result: error.response?.data,
+        //     );
         //   }
-        // });
-        return handler.next(options); // 继续执行请求
-      },
-    ));
+        //   return handler.next(error);
+        // },
+      ),
+    );
     return dio;
   }
 }

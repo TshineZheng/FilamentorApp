@@ -139,7 +139,7 @@ class _ControllerEditPageState extends BasePageState<ControllerEditPage, Control
         OutlinedButton(
           onPressed: () {
             if (_formKey.currentState?.saveAndValidate() ?? false) {
-              store.create(
+              store.create$catch(
                 type,
                 _formKey.currentState?.value['alias'],
                 _formKey.currentState?.value['ip'],

@@ -3,6 +3,21 @@
 part of 'controller_edit_page_store.gen.dart';
 
 // **************************************************************************
+// LCEGenerator
+// **************************************************************************
+
+extension ControllerEditPageStoreBaseCatchExt on ControllerEditPageStoreBase {
+  Future<void> create$catch(
+      String type, String name, String ip, int totalChannel) async {
+    try {
+      return await create(type, name, ip, totalChannel);
+    } catch (e) {
+      showMessage("创建失败\n${e.toString()}");
+    }
+  }
+}
+
+// **************************************************************************
 // StoreGenerator
 // **************************************************************************
 
