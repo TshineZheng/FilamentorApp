@@ -213,15 +213,12 @@ class _PrinterPageState extends BasePageState<PrinterPage, PrinterPageStore> {
           children: List.generate(
             store.channelList.length,
             (index) => ChannelItem(
+              printerChannel: index + 1,
               channel: store.channelList[index],
               onAction: (controllerId, channel, action) => store.control$retry(controllerId, channel, action),
               onEdit: (type, color) {
                 store.editChannelFilamente(
-                  channel: store.channelList[index],
-                  filaType: type,
-                  color: color,
-                  printerChannel: index
-                );
+                    channel: store.channelList[index], filaType: type, color: color, printerChannel: index);
               },
             ),
           ),

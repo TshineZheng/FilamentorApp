@@ -176,7 +176,8 @@ abstract class PrinterPageStoreBase extends BasePageStore with Store {
           action,
         )
         .obf;
-    await fetchConfig;
+    await fetchControl;
+
   }
 
   @retryCatch

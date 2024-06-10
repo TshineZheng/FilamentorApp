@@ -91,11 +91,13 @@ Widget pickerItemBuilder(BuildContext context, color, bool isCurrentColor, void 
 }
 
 class ChannelItem extends StatelessWidget {
+  final int printerChannel;
   final Channel channel;
   final void Function(String controllerId, int channel, int action) onAction;
   final void Function(String type, Color color)? onEdit;
   const ChannelItem({
     super.key,
+    required this.printerChannel,
     required this.channel,
     required this.onAction,
     this.onEdit,
@@ -107,9 +109,9 @@ class ChannelItem extends StatelessWidget {
       child: Row(
         children: [
           Hero(
-            tag: 'channel${channel.channel}',
+            tag: 'channel$printerChannel',
             child: GestureDetector(
-              child: ChannelIcon(channel: channel),
+              child: ChannelIcon(channel: channel, printerChannel: printerChannel,),
               onTap: () => _filamentEditor(context),
             ),
           ),
@@ -155,8 +157,8 @@ class ChannelItem extends StatelessWidget {
               children: [
                 const SizedBox(height: 40),
                 Hero(
-                  tag: 'channel${channel.channel}',
-                  child: ChannelIcon(channel: channel),
+                  tag: 'channel$printerChannel',
+                  child: ChannelIcon(channel: channel, printerChannel: printerChannel,),
                 ),
                 const SizedBox(height: 20),
                 Observer(builder: (_) {
@@ -294,9 +296,11 @@ final state2icon = {
 
 class ChannelIcon extends StatelessWidget {
   final Channel channel;
+  final int printerChannel;
   const ChannelIcon({
     super.key,
     required this.channel,
+    required this.printerChannel,
   });
 
   @override
@@ -323,7 +327,7 @@ class ChannelIcon extends StatelessWidget {
                 return CircleAvatar(
                   backgroundColor: channel.filamentColor,
                   child: Text(
-                    '${channel.channel + 1}',
+                    '$printerChannel',
                     style:
                         TextStyle(color: channel.filamentColor.computeLuminance() > 0.5 ? Colors.black : Colors.white),
                   ),

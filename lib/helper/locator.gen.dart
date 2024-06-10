@@ -57,18 +57,18 @@ abstract class RegisterModule {
             result: response.data,
           );
         },
-        // onError: (error, handler) {
-        //   final msg = error.response?.data['message'];
-        //   if (msg != null) {
-        //     throw ServerExceptions(
-        //       url: error.response?.realUri,
-        //       code: error.response?.data['code'] ?? error.response?.statusCode,
-        //       message: error.response?.data['message'] ?? '未知错误',
-        //       result: error.response?.data,
-        //     );
-        //   }
-        //   return handler.next(error);
-        // },
+        onError: (error, handler) {
+          final msg = error.response?.data['message'];
+          if (msg != null) {
+            throw ServerExceptions(
+              url: error.response?.realUri,
+              code: error.response?.data['code'] ?? error.response?.statusCode,
+              message: error.response?.data['message'] ?? '未知错误',
+              result: error.response?.data,
+            );
+          }
+          return handler.next(error);
+        },
       ),
     );
     return dio;
