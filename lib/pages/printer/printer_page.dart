@@ -109,15 +109,13 @@ class _PrinterPageState extends BasePageState<PrinterPage, PrinterPageStore> {
 
   SliverToBoxAdapter _buildPrintHeader() => const SliverToBoxAdapter(child: ListHeader('打印设置'));
 
-  SliverToBoxAdapter _buildDetectHeader() {
-    return SliverToBoxAdapter(
-      child: Observer(builder: (_) {
-        if (store.detectorList.isNotEmpty) {
-          return const SliverToBoxAdapter(child: ListHeader('检测器'));
-        }
-        return const SizedBox.shrink();
-      }),
-    );
+  Widget _buildDetectHeader() {
+    return Observer(builder: (_) {
+      if (store.detectorList.isNotEmpty) {
+        return const SliverToBoxAdapter(child: ListHeader('检测器'));
+      }
+      return const SizedBox.shrink();
+    });
   }
 
   SliverToBoxAdapter _buildChannelHeader() {
