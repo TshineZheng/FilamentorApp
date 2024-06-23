@@ -1,3 +1,4 @@
+import 'package:filamentor_app/config/app_dimens.dart';
 import 'package:filamentor_app/models/channel.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -118,6 +119,7 @@ class ChannelItem extends StatelessWidget {
           // const SizedBox(width: 10),
           Expanded(
             child: Container(
+              height: AppDimens.ITEM_HEIGHT,
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
               decoration: BoxDecoration(color: HexColor('#dbe4ee'), borderRadius: BorderRadius.circular(15)),
               child: Row(

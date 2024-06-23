@@ -1,4 +1,6 @@
-import 'package:filamentor_app/models/detector.dart';
+import 'package:chinese_font_library/chinese_font_library.dart';
+import 'package:filamentor_app/config/app_dimens.dart';
+import 'package:filamentor_app/models/detector.gen.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -56,24 +58,21 @@ class DetectorItem extends StatelessWidget {
         );
       },
       child: Container(
+        height: AppDimens.ITEM_HEIGHT,
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         decoration: BoxDecoration(color: HexColor('#dbe4ee'), borderRadius: BorderRadius.circular(15)),
         child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  detector.name,
-                  style: TextStyle(color: HexColor('#1a7072')),
-                ),
-                const SizedBox(height: 10),
-                Text(detector.shortInfo, style: Theme.of(context).textTheme.labelMedium),
-              ],
+            Text(
+              detector.name,
+              style: TextStyle(color: HexColor('#1a7072')).useSystemChineseFont(),
             ),
-            const Spacer(),
-            const Icon(Icons.info_outline),
+            Text(
+              detector.isBroken ? '无料' : '有料',
+              style: Theme.of(context).textTheme.labelLarge?.useSystemChineseFont(),
+            ),
           ],
         ),
       ),

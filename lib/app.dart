@@ -18,8 +18,6 @@ GetIt gain = GetIt.instance;
 
 Future<void> createApp() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  WidgetsFlutterBinding.ensureInitialized();
   if (Constants.isDesktop) {
     // 在电脑上的窗口调整成适合调试的比例
     await windowManager.ensureInitialized();

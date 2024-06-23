@@ -1,3 +1,4 @@
+import 'package:filamentor_app/config/app_dimens.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:prompt_dialog/prompt_dialog.dart';
@@ -105,6 +106,7 @@ abstract class SettingItem<T> extends StatelessWidget {
       },
       behavior: HitTestBehavior.translucent,
       child: Container(
+        height: AppDimens.ITEM_HEIGHT,
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         decoration: BoxDecoration(color: HexColor('#dbe4ee'), borderRadius: BorderRadius.circular(15)),
         child: Row(

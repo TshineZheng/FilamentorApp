@@ -14,6 +14,7 @@ export 'resp_printer_info.dart';
 export 'resp_sync.dart';
 export 'resp_sync_ams.dart';
 export 'resp_sync_controller.dart';
+export 'resp_sync_detect.dart';
 export 'yba_ams_info.dart';
 import 'package:quiver/core.dart';
 

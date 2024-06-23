@@ -10,4 +10,6 @@ class AppDimens {
   static const DESING_HEIGHT = 812.0;
 
   static const DESIGN_SIZE = Size(DESIGN_WIDTH, DESING_HEIGHT);
+
+  static const ITEM_HEIGHT = 40.0;
 }

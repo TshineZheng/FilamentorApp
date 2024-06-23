@@ -1,4 +1,5 @@
 {
   "ams": "$[]resp_sync_ams",
-  "controller": "$[]resp_sync_controller"
+  "controller": "$[]resp_sync_controller",
+  "detect": "$[]resp_sync_detect"
 }

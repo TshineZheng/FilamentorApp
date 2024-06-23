@@ -10,7 +10,7 @@ import 'package:filamentor_app/data/network/printer_client.gen.dart';
 import 'package:filamentor_app/data/network/sys_client.gen.dart';
 import 'package:filamentor_app/models/channel.gen.dart';
 import 'package:filamentor_app/models/controller.gen.dart';
-import 'package:filamentor_app/models/detector.dart' as printer_detector;
+import 'package:filamentor_app/models/detector.gen.dart' as printer_detector;
 import 'package:filamentor_app/models/mqtt_filament_broken_detector.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:injectable/injectable.dart';
@@ -160,7 +160,7 @@ abstract class PrinterPageStoreBase extends BasePageStore with Store {
             return MqttFilamentBrokenDetector(id: e.detectId, mqttServer: element.info.mqttConfig.server);
           }
         }
-        return printer_detector.DefaultDetector(id: e.detectId);
+        return printer_detector.Detector(id: e.detectId);
       }),
     );
   }
@@ -214,6 +214,15 @@ abstract class PrinterPageStoreBase extends BasePageStore with Store {
             if (channel.channel < e.channelStates.length) {
               channel.state = e.channelStates[channel.channel];
             }
+            break;
+          }
+        }
+      }
+
+      for (var detector in detectorList) {
+        for (var e in ret.data.detect) {
+          if (e.detectId == detector.id) {
+            detector.isBroken = e.isBroken;
             break;
           }
         }
