@@ -1,5 +1,6 @@
 {
     "ip": "192.168.10.241",
     "port": 3333,
-    "channel_total": 4
+    "channel_total": 4,
+    "fila_broken_safe_time?": 0.0
   }

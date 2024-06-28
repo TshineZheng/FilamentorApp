@@ -7,10 +7,10 @@ part of 'controller_edit_page_store.gen.dart';
 // **************************************************************************
 
 extension ControllerEditPageStoreBaseCatchExt on ControllerEditPageStoreBase {
-  Future<void> create$catch(
-      String type, String name, String ip, int totalChannel) async {
+  Future<void> create$catch(String type, String name, String ip,
+      int totalChannel, double filaBrokenSafetime) async {
     try {
-      return await create(type, name, ip, totalChannel);
+      return await create(type, name, ip, totalChannel, filaBrokenSafetime);
     } catch (e) {
       showMessage("创建失败\n${e.toString()}");
     }
@@ -52,9 +52,10 @@ mixin _$ControllerEditPageStore on ControllerEditPageStoreBase, Store {
       AsyncAction('ControllerEditPageStoreBase.create', context: context);
 
   @override
-  Future<void> create(String type, String name, String ip, int totalChannel) {
-    return _$createAsyncAction
-        .run(() => super.create(type, name, ip, totalChannel));
+  Future<void> create(String type, String name, String ip, int totalChannel,
+      double filaBrokenSafetime) {
+    return _$createAsyncAction.run(
+        () => super.create(type, name, ip, totalChannel, filaBrokenSafetime));
   }
 
   @override

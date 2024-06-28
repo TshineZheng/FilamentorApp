@@ -71,7 +71,7 @@ class _PrinterPageState extends BasePageState<PrinterPage, PrinterPageStore> {
               slivers: [
                 _buildChannelHeader(),
                 _buildChannelList(),
-                _buildDetectHeader(),
+                _buildDetectHeader(), 
                 _buildDetectorList(),
                 _buildPrintHeader(),
                 _buildSettings(),
@@ -109,14 +109,14 @@ class _PrinterPageState extends BasePageState<PrinterPage, PrinterPageStore> {
     );
   }
 
-  SliverToBoxAdapter _buildPrintHeader() => const SliverToBoxAdapter(child: ListHeader('打印设置'));
+  SliverToBoxAdapter _buildPrintHeader() => const SliverToBoxAdapter(child: ListHeader('打印状态'));
 
   Widget _buildDetectHeader() {
     return Observer(builder: (_) {
       if (store.detectorList.isNotEmpty) {
         return const SliverToBoxAdapter(child: ListHeader('检测器'));
       }
-      return const SizedBox.shrink();
+      return const SliverToBoxAdapter(child: SizedBox.shrink());
     });
   }
 
@@ -168,14 +168,14 @@ class _PrinterPageState extends BasePageState<PrinterPage, PrinterPageStore> {
           minValue: 1,
         );
       }),
-      Observer(builder: (_) {
-        return NumberSettingItem(
-          title: '换色温度',
-          value: store.filaChangeTemp,
-          onCommit: (p0) => store.setFilaChangeTemp(p0),
-          minValue: 0,
-        );
-      }),
+      // Observer(builder: (_) {
+      //   return NumberSettingItem(
+      //     title: '换色温度',
+      //     value: store.filaChangeTemp,
+      //     onCommit: (p0) => store.setFilaChangeTemp(p0),
+      //     minValue: 0,
+      //   );
+      // }),
     ]);
   }
 

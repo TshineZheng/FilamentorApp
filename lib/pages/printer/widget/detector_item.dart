@@ -2,6 +2,7 @@ import 'package:chinese_font_library/chinese_font_library.dart';
 import 'package:filamentor_app/config/app_dimens.dart';
 import 'package:filamentor_app/models/detector.gen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -31,25 +32,26 @@ class DetectorItem extends StatelessWidget {
                   const SizedBox(height: 20),
                   Text(detector.info),
                   const SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const OutlinedButton(
-                        onPressed: null,
-                        child: Text('测试连接'),
-                      ),
-                      const SizedBox(width: 20),
-                      OutlinedButton(
-                        onPressed: () async {
-                          final url = Uri.parse(detector.url);
-                          if (!await launchUrl(url)) {
-                            throw Exception('Could not launch $url');
-                          }
-                        },
-                        child: const Text('查看详情'),
-                      ),
-                    ],
-                  ),
+                  if (detector.url.isNotEmpty)
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const OutlinedButton(
+                          onPressed: null,
+                          child: Text('测试连接'),
+                        ),
+                        const SizedBox(width: 20),
+                        OutlinedButton(
+                          onPressed: () async {
+                            final url = Uri.parse(detector.url);
+                            if (!await launchUrl(url)) {
+                              throw Exception('Could not launch $url');
+                            }
+                          },
+                          child: const Text('查看详情'),
+                        ),
+                      ],
+                    ),
                   const SizedBox(height: 40),
                 ],
               ),
@@ -69,10 +71,12 @@ class DetectorItem extends StatelessWidget {
               detector.name,
               style: TextStyle(color: HexColor('#1a7072')).useSystemChineseFont(),
             ),
-            Text(
-              detector.isBroken ? '无料' : '有料',
-              style: Theme.of(context).textTheme.labelLarge?.useSystemChineseFont(),
-            ),
+            Observer(builder: (_) {
+              return Text(
+                detector.isBroken ? '无料' : '有料',
+                style: Theme.of(context).textTheme.labelLarge?.useSystemChineseFont(),
+              );
+            }),
           ],
         ),
       ),

@@ -31,13 +31,18 @@ abstract class ControllerEditPageStoreBase extends BasePageStore with Store {
 
   @LCECatch(message: '创建失败')
   @action
-  Future<void> create(String type, String name, String ip, int totalChannel) async {
+  Future<void> create(String type, String name, String ip, int totalChannel, double filaBrokenSafetime) async {
     fetchAddController = controllerClient
         .add(
           name,
           type,
           //TODO: 这里写死固定 YBA-AMS 类型了，后续需要优化
-          YbaAmsInfo(ip: ip, port: 3333, channelTotal: totalChannel).toJson(),
+          YbaAmsInfo(
+            ip: ip,
+            port: 3333,
+            channelTotal: totalChannel,
+            filaBrokenSafeTime: filaBrokenSafetime,
+          ).toJson(),
         )
         .obf;
     await fetchAddController;

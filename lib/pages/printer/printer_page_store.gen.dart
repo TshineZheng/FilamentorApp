@@ -8,8 +8,10 @@ import 'package:filamentor_app/data/network/controller_client.gen.dart';
 import 'package:filamentor_app/data/network/models/index.dart';
 import 'package:filamentor_app/data/network/printer_client.gen.dart';
 import 'package:filamentor_app/data/network/sys_client.gen.dart';
+import 'package:filamentor_app/models/bambu_broken_detector.dart';
 import 'package:filamentor_app/models/channel.gen.dart';
 import 'package:filamentor_app/models/controller.gen.dart';
+import 'package:filamentor_app/models/controller_broken_detector.dart';
 import 'package:filamentor_app/models/detector.gen.dart' as printer_detector;
 import 'package:filamentor_app/models/mqtt_filament_broken_detector.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -157,7 +159,13 @@ abstract class PrinterPageStoreBase extends BasePageStore with Store {
       config!.detectRelations.where((e) => e.printerId == printerId).map((e) {
         for (var element in config!.detectList) {
           if (element.id == e.detectId) {
-            return MqttFilamentBrokenDetector(id: e.detectId, mqttServer: element.info.mqttConfig.server);
+            if (element.type == 'mqtt_broken_detect') {
+              return MqttFilamentBrokenDetector(id: e.detectId, mqttServer: element.info['server']);
+            }else if (element.type == 'yba_ams_single_buffer_broken_detect') {
+              return ControllerBrokenDetector(id: e.detectId, controllerAlias: element.alias, safeTime: element.info['safe_time']);
+            }else if (element.type == 'bambu_broken_detect') {
+              return BambuBrokenDetector(id: e.detectId, printerAlias: element.alias, safeTime: element.info['safe_time']);
+            }
           }
         }
         return printer_detector.Detector(id: e.detectId);

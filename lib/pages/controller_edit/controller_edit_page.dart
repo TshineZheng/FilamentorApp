@@ -26,6 +26,7 @@ class _ControllerEditPageState extends BasePageState<ControllerEditPage, Control
       'yba_ams_py': _buildYBAAMSPYForm,
       'yba_ams': _buildYBAAMSForm,
       'yba_ams_servo': _buildYBAAMSPYSERVOForm,
+      'yba_ams_single_buffer': _buildYBASingleBufferForm,
     };
   }
 
@@ -106,7 +107,40 @@ class _ControllerEditPageState extends BasePageState<ControllerEditPage, Control
     );
   }
 
-  Widget _buildYBALikeForm(String type) {
+  Widget _buildYBASingleBufferForm(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Linkify(
+          onOpen: (link) async {
+            if (!await launchUrl(Uri.parse(link.url))) {
+              store.showMessage('Could not launch ${link.url}');
+            }
+          },
+          text: "作者: Tshine\n项目地址: https://github.com/TshineZheng/YBA-AMS-ESP-PY",
+        ),
+        const SizedBox(height: 10),
+        _buildYBALikeForm('yba_ams_single_buffer',
+            others: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                FormBuilderTextField(
+                  name: 'fila_broken_safe_time',
+                  decoration: const InputDecoration(
+                    labelText: '退料安全时间',
+                    hintText: '退料经过断料检测器后再退多少时间',
+                    floatingLabelBehavior: FloatingLabelBehavior.always,
+                    suffix: Text('秒')
+                  ),
+                ),
+                const Text('若不使用，则填 0')
+              ],
+            )),
+      ],
+    );
+  }
+
+  Widget _buildYBALikeForm(String type, {Widget? others}) {
     return Column(
       children: [
         FormBuilderTextField(
@@ -135,6 +169,7 @@ class _ControllerEditPageState extends BasePageState<ControllerEditPage, Control
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
           validator: (value) => value == null || value.isEmpty ? '通道数量不能为空' : null,
         ),
+        if (others != null) others,
         const SizedBox(height: 40),
         OutlinedButton(
           onPressed: () {
@@ -144,6 +179,7 @@ class _ControllerEditPageState extends BasePageState<ControllerEditPage, Control
                 _formKey.currentState?.value['alias'],
                 _formKey.currentState?.value['ip'],
                 int.parse(_formKey.currentState?.value['total_channel']),
+                double.parse(_formKey.currentState?.value['fila_broken_safe_time'] ?? '0'),
               );
             }
           },
@@ -171,13 +207,17 @@ class _ControllerEditPageState extends BasePageState<ControllerEditPage, Control
           child: Text('YBA-AMS-PY'),
         ),
         DropdownMenuItem(
+          value: 'yba_ams_single_buffer',
+          child: Text('YBA-AMS-PY 单缓冲'),
+        ),
+        DropdownMenuItem(
           value: 'yba_ams',
           child: Text('YBA-AMS'),
         ),
-        DropdownMenuItem(
-          value: 'yba_ams_servo',
-          child: Text('YBA-AMS-PY 被动送料版'),
-        )
+        // DropdownMenuItem(
+        //   value: 'yba_ams_servo',
+        //   child: Text('YBA-AMS-PY 被动送料版'),
+        // ),
       ],
     );
   }

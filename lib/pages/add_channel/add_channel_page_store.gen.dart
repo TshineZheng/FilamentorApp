@@ -97,7 +97,16 @@ abstract class AddChannelPageStoreBase extends BasePageStore with Store {
 
     controllers = controllerfromConfig(config);
 
-    curController = controllers.isEmpty ? null : controllers.first;
+    if (curController != null) {
+      for (var e in controllers) {
+        if (e.id == curController!.id) {
+          curController = e;
+          break;
+        }
+      }
+    } else {
+      curController = controllers.isEmpty ? null : controllers.first;
+    }
 
     dateLoaded = true;
   }
