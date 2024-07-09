@@ -64,19 +64,26 @@ class DetectorItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         decoration: BoxDecoration(color: HexColor('#dbe4ee'), borderRadius: BorderRadius.circular(15)),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               detector.name,
               style: TextStyle(color: HexColor('#1a7072')).useSystemChineseFont(),
             ),
-            Observer(builder: (_) {
-              return Text(
-                detector.isBroken ? '无料' : '有料',
-                style: Theme.of(context).textTheme.labelLarge?.useSystemChineseFont(),
-              );
-            }),
+            Observer(
+              builder: (_) {
+                return detector.isBroken
+                    ? const Icon(
+                        Icons.circle_outlined,
+                        color: Colors.grey,
+                      )
+                    : Icon(
+                        Icons.circle,
+                        color: Theme.of(context).primaryColor,
+                      );
+              },
+            ),
           ],
         ),
       ),

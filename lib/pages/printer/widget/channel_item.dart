@@ -294,6 +294,7 @@ final state2icon = {
   0: Icons.stop,
   1: Icons.keyboard_arrow_right,
   2: Icons.keyboard_arrow_left,
+  3: Icons.format_paint,
 };
 
 class ChannelIcon extends StatelessWidget {
@@ -346,6 +347,7 @@ class ChannelIcon extends StatelessWidget {
               opacity: channel.state == 0 ? 0 : 1,
               child: Container(
                 decoration: BoxDecoration(shape: BoxShape.circle, color: HexColor('#dbe4ee')),
+                padding: const EdgeInsets.all(2),
                 child: Icon(
                   state2icon[channel.state] ?? Icons.pause_circle,
                   color: Colors.green,

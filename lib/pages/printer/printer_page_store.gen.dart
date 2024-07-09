@@ -161,10 +161,12 @@ abstract class PrinterPageStoreBase extends BasePageStore with Store {
           if (element.id == e.detectId) {
             if (element.type == 'mqtt_broken_detect') {
               return MqttFilamentBrokenDetector(id: e.detectId, mqttServer: element.info['server']);
-            }else if (element.type == 'yba_ams_single_buffer_broken_detect') {
-              return ControllerBrokenDetector(id: e.detectId, controllerAlias: element.alias, safeTime: element.info['safe_time']);
-            }else if (element.type == 'bambu_broken_detect') {
-              return BambuBrokenDetector(id: e.detectId, printerAlias: element.alias, safeTime: element.info['safe_time']);
+            } else if (element.type == 'yba_ams_single_buffer_broken_detect') {
+              return ControllerBrokenDetector(
+                  id: e.detectId, controllerAlias: element.alias, safeTime: element.info['safe_time']);
+            } else if (element.type == 'bambu_broken_detect') {
+              return BambuBrokenDetector(
+                  id: e.detectId, printerAlias: element.alias, safeTime: element.info['safe_time']);
             }
           }
         }
@@ -185,7 +187,6 @@ abstract class PrinterPageStoreBase extends BasePageStore with Store {
         )
         .obf;
     await fetchControl;
-
   }
 
   @retryCatch
@@ -216,15 +217,22 @@ abstract class PrinterPageStoreBase extends BasePageStore with Store {
         }
       }
 
+      int ci = 0;
+
       for (var channel in channelList) {
         for (var e in ret.data.controller) {
           if (e.controllerId == channel.controllerId) {
             if (channel.channel < e.channelStates.length) {
               channel.state = e.channelStates[channel.channel];
+              if (ci == curFila && channel.state == 0) {  // 如果通道为当前通道，且通道状态为停止，则显示正在打印标识
+                channel.state = 3;
+              }
             }
             break;
           }
         }
+
+        ci++;
       }
 
       for (var detector in detectorList) {
@@ -265,12 +273,8 @@ abstract class PrinterPageStoreBase extends BasePageStore with Store {
   }
 
   @action
-  Future<void> editChannelFilamente({
-    required Channel channel,
-    required String filaType,
-    required Color color,
-    required int printerChannel
-  }) async {
+  Future<void> editChannelFilamente(
+      {required Channel channel, required String filaType, required Color color, required int printerChannel}) async {
     if (channel.filamentType == filaType && channel.filamentColor.toHexString() == color.toHexString()) {
       return;
     }
